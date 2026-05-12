@@ -1,0 +1,2222 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>咖啡豆批发报价单｜手机版</title>
+  <style>
+    :root{
+      --bg:#efe7dc;
+      --bg-deep:#251c18;
+      --paper:#fffaf1;
+      --paper-soft:#f8efe4;
+      --ink:#2d241f;
+      --muted:#77695f;
+      --line:rgba(78,55,45,.16);
+      --cocoa:#583d31;
+      --coffee:#8b5a42;
+      --cream:#f8ddbd;
+      --rose:#c97972;
+      --citrus:#d89d35;
+      --sage:#7e8b68;
+      --blue:#627f8d;
+      --shadow:0 26px 70px rgba(45,31,24,.13);
+      --shadow-soft:0 14px 34px rgba(45,31,24,.09);
+      --radius-xl:42px;
+      --radius-lg:30px;
+      --radius-md:20px;
+      --font-display:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro SC","PingFang SC","Helvetica Neue",Arial,sans-serif;
+      --font-body:-apple-system,BlinkMacSystemFont,"SF Pro Text","SF Pro SC","PingFang SC","Helvetica Neue",Arial,sans-serif;
+      --font-poster:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro SC","PingFang SC","Helvetica Neue",Arial,sans-serif;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      min-width:320px;
+      overflow-x:hidden;
+      background:
+        radial-gradient(circle at 86% 8%, rgba(217,157,53,.28), transparent 30vw),
+        radial-gradient(circle at 6% 34%, rgba(190,108,93,.22), transparent 32vw),
+        linear-gradient(135deg,#f5eadc 0%,#eee0d2 42%,#e6d6c7 100%);
+      color:var(--ink);
+      font-family:var(--font-body);
+    }
+
+    body::before{
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      z-index:0;
+      opacity:.3;
+      background-image:
+        linear-gradient(rgba(88,61,49,.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(88,61,49,.08) 1px, transparent 1px);
+      background-size:52px 52px;
+      mask-image:linear-gradient(to bottom, rgba(0,0,0,.8), transparent 86%);
+    }
+
+    a{color:inherit;text-decoration:none}
+    button,input{font:inherit}
+    button{cursor:pointer}
+    img{max-width:100%;display:block}
+    .container{width:min(1180px,calc(100% - 40px));margin:0 auto}
+    header,main,section,footer{position:relative;z-index:1}
+
+    .scroll-progress{
+      position:fixed;
+      top:0;
+      left:0;
+      right:0;
+      height:4px;
+      z-index:40;
+      background:rgba(255,250,241,.45);
+      backdrop-filter:blur(12px);
+    }
+    .scroll-progress span{
+      display:block;
+      width:100%;
+      height:100%;
+      transform:scaleX(var(--scroll-progress,0));
+      transform-origin:left center;
+      background:linear-gradient(90deg,#fff8eb,#d89d35,#6d4b3c);
+    }
+
+    .nav{
+      position:sticky;
+      top:14px;
+      z-index:30;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:18px;
+      width:min(1180px,calc(100% - 40px));
+      margin:18px auto 0;
+      padding:12px 14px 12px 18px;
+      border:1px solid rgba(255,255,255,.58);
+      border-radius:999px;
+      background:rgba(255,250,241,.72);
+      box-shadow:0 12px 32px rgba(61,42,34,.08);
+      backdrop-filter:blur(18px);
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      min-width:0;
+      font-weight:800;
+      color:#352721;
+    }
+    .brand-mark{
+      width:34px;
+      height:34px;
+      border-radius:50%;
+      background:
+        radial-gradient(circle at 38% 34%, #fff1d5 0 14%, transparent 16%),
+        linear-gradient(135deg,#6e493b,#1f1714);
+      box-shadow:inset 0 0 0 1px rgba(255,255,255,.28);
+      flex:0 0 auto;
+    }
+    .brand span{
+      overflow:hidden;
+      text-overflow:ellipsis;
+      white-space:nowrap;
+      letter-spacing:.02em;
+    }
+    .nav-links{display:flex;gap:4px;align-items:center}
+    .nav-links a{
+      padding:10px 14px;
+      border-radius:999px;
+      color:#66564d;
+      font-size:13px;
+      font-weight:800;
+      transition:background .2s ease,color .2s ease,transform .2s ease;
+    }
+    .nav-links a:hover{background:#342721;color:#fff;transform:translateY(-1px)}
+
+    .hero{
+      min-height:calc(100svh - 18px);
+      display:grid;
+      align-items:center;
+      padding:76px 0 42px;
+    }
+    .deck{
+      position:relative;
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,.62);
+      border-radius:clamp(28px,4vw,56px);
+      background:
+        linear-gradient(135deg, rgba(255,250,241,.96), rgba(244,231,216,.86)),
+        radial-gradient(circle at 88% 14%, rgba(216,157,53,.24), transparent 38%);
+      box-shadow:var(--shadow);
+      min-height:720px;
+      padding:clamp(24px,4vw,54px);
+    }
+    .deck::before{
+      content:"";
+      position:absolute;
+      inset:16px;
+      border:1px solid rgba(88,61,49,.1);
+      border-radius:calc(clamp(28px,4vw,56px) - 12px);
+      pointer-events:none;
+    }
+    .deck-grid{
+      position:relative;
+      z-index:1;
+      display:grid;
+      grid-template-columns:minmax(0,.92fr) minmax(420px,1.08fr);
+      gap:40px;
+      align-items:stretch;
+      min-height:610px;
+    }
+    .slide-copy{
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      gap:30px;
+    }
+    .slide-no{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      width:max-content;
+      padding:8px 13px;
+      border:1px solid rgba(88,61,49,.16);
+      border-radius:999px;
+      background:rgba(255,255,255,.58);
+      color:#765f51;
+      font-size:12px;
+      font-weight:900;
+      letter-spacing:.16em;
+      text-transform:uppercase;
+    }
+    .slide-no::before{
+      content:"";
+      width:8px;
+      height:8px;
+      border-radius:50%;
+      background:var(--citrus);
+      box-shadow:0 0 0 5px rgba(216,157,53,.16);
+    }
+    .hero h1{
+      max-width:620px;
+      margin:22px 0 0;
+      font-family:var(--font-display);
+      font-size:clamp(48px,5rem,88px);
+      line-height:1;
+      font-weight:950;
+      letter-spacing:0;
+      color:#261b16;
+    }
+    .hero h1 span{display:block;color:#8a563f}
+    .hero-intro{
+      max-width:540px;
+      margin:24px 0 0;
+      color:#6c5d53;
+      font-size:17px;
+      line-height:1.9;
+    }
+    .hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      min-height:48px;
+      padding:14px 20px;
+      border:1px solid transparent;
+      border-radius:999px;
+      font-weight:900;
+      transition:transform .22s ease,box-shadow .22s ease,background .22s ease;
+    }
+    .btn.primary{
+      background:#2d211c;
+      color:#fff8ee;
+      box-shadow:0 14px 26px rgba(45,33,28,.2);
+    }
+    .btn.secondary{
+      background:rgba(255,255,255,.68);
+      border-color:rgba(88,61,49,.14);
+      color:#43342d;
+    }
+    .btn:hover{transform:translateY(-2px)}
+    .hero-metrics{
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:12px;
+      margin-top:auto;
+    }
+    .metric{
+      min-height:116px;
+      padding:18px;
+      border:1px solid rgba(88,61,49,.14);
+      border-radius:24px;
+      background:rgba(255,250,241,.7);
+      box-shadow:var(--shadow-soft);
+    }
+    .metric strong{
+      display:block;
+      font-family:var(--font-display);
+      font-size:28px;
+      line-height:1;
+      color:#31231d;
+    }
+    .metric span{display:block;margin-top:10px;color:#76665d;font-size:13px;line-height:1.55}
+
+    .stage{
+      position:relative;
+      min-height:610px;
+      border-radius:38px;
+      background:
+        linear-gradient(150deg,#2c211c,#6d4636 56%,#c98752);
+      overflow:hidden;
+      box-shadow:inset 0 0 0 1px rgba(255,255,255,.16),0 28px 64px rgba(57,34,25,.2);
+    }
+    .stage::before{
+      content:"";
+      position:absolute;
+      inset:-18%;
+      background:
+        radial-gradient(circle at 22% 18%, rgba(255,235,202,.36), transparent 28%),
+        radial-gradient(circle at 78% 64%, rgba(255,255,255,.22), transparent 30%);
+      animation:floatGlow 13s ease-in-out infinite;
+    }
+    .stage::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:linear-gradient(90deg,rgba(0,0,0,.12),transparent 40%,rgba(255,255,255,.1));
+      pointer-events:none;
+    }
+    .presentation-card{
+      position:absolute;
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,.42);
+      border-radius:30px;
+      background:rgba(255,250,241,.88);
+      box-shadow:0 20px 50px rgba(24,16,12,.22);
+      backdrop-filter:blur(14px);
+      animation:floatCard 7s ease-in-out infinite;
+    }
+    .presentation-card.card-a{
+      top:42px;
+      left:34px;
+      right:118px;
+      height:350px;
+    }
+    .presentation-card.card-b{
+      right:28px;
+      bottom:40px;
+      width:44%;
+      min-width:230px;
+      height:310px;
+      animation-delay:-2s;
+    }
+    .presentation-card.card-c{
+      left:42px;
+      bottom:66px;
+      width:45%;
+      min-width:240px;
+      height:220px;
+      animation-delay:-4s;
+    }
+    .card-art{
+      height:58%;
+      background-size:cover;
+      background-position:center;
+      position:relative;
+    }
+    .card-art::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:linear-gradient(to top,rgba(29,20,16,.22),transparent 60%);
+    }
+    .card-content{padding:18px 20px}
+    .card-content small{
+      display:block;
+      color:#9a7460;
+      font-size:11px;
+      font-weight:900;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+    }
+    .card-content strong{
+      display:block;
+      margin-top:7px;
+      font-family:var(--font-display);
+      font-size:clamp(26px,2rem,34px);
+      line-height:.98;
+      color:#2b211c;
+    }
+    .card-content p{
+      margin:10px 0 0;
+      color:#6b5a50;
+      font-size:13px;
+      line-height:1.6;
+    }
+    .stage-ribbon{
+      position:absolute;
+      z-index:2;
+      left:24px;
+      right:24px;
+      bottom:22px;
+      display:flex;
+      gap:10px;
+      overflow:hidden;
+      padding:10px;
+      border:1px solid rgba(255,255,255,.32);
+      border-radius:999px;
+      background:rgba(35,25,20,.28);
+      backdrop-filter:blur(12px);
+    }
+    .stage-ribbon span{
+      white-space:nowrap;
+      padding:9px 14px;
+      border-radius:999px;
+      background:rgba(255,250,241,.86);
+      color:#40312a;
+      font-size:12px;
+      font-weight:900;
+    }
+
+    .section{padding:72px 0}
+    .slide-panel{
+      position:relative;
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,.58);
+      border-radius:var(--radius-xl);
+      background:rgba(255,250,241,.78);
+      box-shadow:var(--shadow);
+      backdrop-filter:blur(18px);
+    }
+    .slide-panel.dark{
+      color:#fff6e9;
+      background:
+        radial-gradient(circle at 80% 10%, rgba(216,157,53,.3), transparent 34%),
+        linear-gradient(145deg,#241a16,#4d3329 62%,#80523d);
+    }
+    .section-head{
+      display:grid;
+      grid-template-columns:.64fr 1fr;
+      gap:26px;
+      align-items:end;
+      margin-bottom:24px;
+    }
+    .eyebrow{
+      margin:0 0 10px;
+      color:#a16a58;
+      font-size:12px;
+      font-weight:950;
+      letter-spacing:.24em;
+      text-transform:uppercase;
+    }
+    .section-head h2{
+      margin:0;
+      font-family:var(--font-display);
+      font-size:clamp(34px,3rem,48px);
+      line-height:1.12;
+      letter-spacing:0;
+      font-weight:950;
+      color:#291f1a;
+      text-wrap:balance;
+    }
+    .section-head p:not(.eyebrow){
+      margin:0;
+      color:#706055;
+      line-height:1.9;
+      font-size:16px;
+    }
+
+    .detail-layout{
+      display:grid;
+      grid-template-columns:minmax(0,.95fr) minmax(360px,1.05fr);
+      min-height:690px;
+    }
+    .detail-media{
+      position:relative;
+      min-height:600px;
+      overflow:hidden;
+      background:#2c211c;
+    }
+    .detail-photo{
+      position:absolute;
+      inset:0;
+      background-size:cover;
+      background-position:center;
+      transform:scale(1.03);
+    }
+    .detail-photo::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        linear-gradient(to top,rgba(26,19,15,.72),rgba(26,19,15,.12) 52%,rgba(26,19,15,.08)),
+        linear-gradient(120deg,rgba(0,0,0,.2),transparent 48%);
+    }
+    .detail-big-number{
+      position:absolute;
+      left:clamp(22px,4vw,42px);
+      top:clamp(22px,4vw,42px);
+      font-family:var(--font-display);
+      font-size:clamp(72px,8rem,128px);
+      line-height:.8;
+      color:rgba(255,248,235,.62);
+      letter-spacing:0;
+    }
+    .detail-media-copy{
+      position:absolute;
+      left:clamp(22px,4vw,42px);
+      right:clamp(22px,4vw,42px);
+      bottom:clamp(22px,4vw,42px);
+    }
+    .detail-media-copy .tag{
+      display:inline-flex;
+      padding:8px 13px;
+      border-radius:999px;
+      background:rgba(255,250,241,.82);
+      color:#3f2e25;
+      font-size:12px;
+      font-weight:950;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+    }
+    .detail-media-copy h3{
+      margin:18px 0 0;
+      max-width:520px;
+      font-family:var(--font-display);
+      font-size:clamp(38px,4rem,64px);
+      line-height:1;
+      letter-spacing:0;
+      color:#fff9ee;
+    }
+    .detail-media-copy p{
+      max-width:520px;
+      margin:18px 0 0;
+      color:rgba(255,248,235,.86);
+      line-height:1.8;
+      font-size:15px;
+    }
+    .detail-info{
+      padding:clamp(24px,4vw,48px);
+      display:flex;
+      flex-direction:column;
+      gap:24px;
+    }
+    .product-title-row{
+      display:flex;
+      justify-content:space-between;
+      gap:18px;
+      align-items:flex-start;
+    }
+    .product-title-row h3{
+      margin:0;
+      font-family:var(--font-display);
+      font-size:clamp(34px,3.5rem,56px);
+      line-height:1.04;
+      letter-spacing:0;
+      color:#281f1a;
+    }
+    .product-title-row span{
+      flex:0 0 auto;
+      padding:10px 13px;
+      border-radius:999px;
+      background:#2d211c;
+      color:#fff5e8;
+      font-weight:950;
+      font-size:13px;
+    }
+    .product-desc{
+      margin:0;
+      color:#68594f;
+      line-height:1.9;
+      font-size:16px;
+    }
+    .spec-grid{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:12px;
+    }
+    .spec{
+      padding:16px;
+      border:1px solid rgba(88,61,49,.13);
+      border-radius:20px;
+      background:rgba(255,255,255,.45);
+    }
+    .spec label{
+      display:block;
+      margin-bottom:7px;
+      color:#9a877b;
+      font-size:12px;
+      font-weight:950;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+    }
+    .spec strong{
+      display:block;
+      color:#372a24;
+      line-height:1.55;
+      font-size:14px;
+    }
+    .score-list{display:grid;gap:12px}
+    .score{
+      display:grid;
+      grid-template-columns:92px 1fr 54px;
+      gap:12px;
+      align-items:center;
+    }
+    .score label{font-size:13px;font-weight:950;color:#7e6d62}
+    .score-track{
+      height:10px;
+      overflow:hidden;
+      border-radius:999px;
+      background:#eadfd4;
+    }
+    .score-track i{
+      display:block;
+      width:var(--score);
+      height:100%;
+      border-radius:inherit;
+      background:linear-gradient(90deg,#c97972,#d89d35);
+    }
+    .score span{text-align:right;color:#6c5c52;font-size:13px;font-weight:800}
+
+    .flavor-board{
+      display:grid;
+      grid-template-columns:repeat(6,minmax(0,1fr));
+      gap:14px;
+      margin-top:18px;
+    }
+    .flavor-card{
+      overflow:hidden;
+      min-height:236px;
+      display:flex;
+      flex-direction:column;
+      border:1px solid rgba(88,61,49,.14);
+      border-radius:26px;
+      background:rgba(255,250,241,.8);
+      box-shadow:var(--shadow-soft);
+      transition:transform .28s ease,box-shadow .28s ease;
+    }
+    .flavor-card:hover{transform:translateY(-5px);box-shadow:0 24px 44px rgba(45,31,24,.14)}
+    .flavor-art{
+      height:118px;
+      background-size:cover;
+      background-position:center;
+      position:relative;
+    }
+    .flavor-art::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:linear-gradient(to top,rgba(30,20,16,.2),transparent);
+    }
+    .flavor-body{padding:15px}
+    .flavor-body strong{display:block;color:#2f241f;font-size:17px}
+    .flavor-body small{
+      display:block;
+      margin-top:5px;
+      color:#9e7460;
+      font-size:10px;
+      font-weight:950;
+      letter-spacing:.16em;
+      text-transform:uppercase;
+    }
+    .flavor-body p{
+      margin:10px 0 0;
+      color:#6e5e54;
+      font-size:13px;
+      line-height:1.65;
+    }
+
+    .quote-panel{padding:clamp(20px,3vw,30px)}
+    .compare-panel{
+      display:grid;
+      gap:15px;
+      margin-bottom:18px;
+      padding:18px;
+      border:1px solid rgba(88,61,49,.13);
+      border-radius:28px;
+      background:
+        radial-gradient(circle at 90% 8%, rgba(216,157,53,.16), transparent 34%),
+        rgba(255,255,255,.52);
+      box-shadow:0 14px 32px rgba(45,31,24,.07);
+    }
+    .compare-head{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:14px;
+    }
+    .compare-head small{
+      display:block;
+      color:#a16a58;
+      font-size:11px;
+      font-weight:950;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+    }
+    .compare-head strong{
+      display:block;
+      margin-top:5px;
+      color:#251c18;
+      font-family:var(--font-display);
+      font-size:34px;
+      line-height:1;
+      letter-spacing:0;
+    }
+    .compare-clear,.compare-remove,.compare-btn,.quote-action{
+      border:0;
+      border-radius:999px;
+      font-weight:950;
+    }
+    .compare-clear{
+      min-height:38px;
+      padding:9px 13px;
+      background:#eadbcd;
+      color:#6b594f;
+    }
+    .compare-slots{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:12px;
+    }
+    .compare-slot{
+      min-height:174px;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      gap:14px;
+      padding:17px;
+      border:1px dashed rgba(88,61,49,.22);
+      border-radius:24px;
+      background:rgba(255,250,241,.68);
+    }
+    .compare-slot.is-filled{
+      border-style:solid;
+      border-color:rgba(216,157,53,.38);
+      background:#fff8ec;
+      box-shadow:0 12px 26px rgba(138,86,63,.1);
+    }
+    .compare-slot small{
+      display:block;
+      color:#a18879;
+      font-size:11px;
+      font-weight:950;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+    }
+    .compare-slot h3{
+      margin:10px 0 0;
+      color:#2c221d;
+      font-family:var(--font-display);
+      font-size:clamp(28px,2.25rem,36px);
+      line-height:1;
+      letter-spacing:0;
+    }
+    .compare-slot p{
+      margin:10px 0 0;
+      color:#6d5d53;
+      font-size:13px;
+      line-height:1.65;
+    }
+    .compare-price{
+      display:inline-flex;
+      width:max-content;
+      max-width:100%;
+      margin-top:12px;
+      padding:8px 11px;
+      border-radius:999px;
+      background:#2d211c;
+      color:#fff7eb;
+      font-size:13px;
+      font-weight:950;
+    }
+    .compare-remove{
+      width:max-content;
+      padding:8px 11px;
+      background:#eadbcd;
+      color:#6b594f;
+      font-size:12px;
+    }
+    .compare-empty{
+      min-height:100%;
+      display:grid;
+      place-items:center;
+      color:#8b7b70;
+      text-align:center;
+      font-size:14px;
+      line-height:1.7;
+    }
+    .compare-rows{
+      overflow:hidden;
+      border:1px solid rgba(88,61,49,.12);
+      border-radius:22px;
+      background:rgba(255,255,255,.5);
+    }
+    .compare-row{
+      display:grid;
+      grid-template-columns:140px repeat(2,minmax(0,1fr));
+      border-bottom:1px solid rgba(88,61,49,.1);
+    }
+    .compare-row:last-child{border-bottom:0}
+    .compare-row > *{
+      padding:14px 15px;
+      border-right:1px solid rgba(88,61,49,.1);
+      color:#4b3a32;
+      line-height:1.6;
+      font-size:13px;
+    }
+    .compare-row > *:last-child{border-right:0}
+    .compare-row label{
+      color:#9d7b68;
+      font-weight:950;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+    }
+    .compare-btn{
+      min-height:36px;
+      padding:8px 12px;
+      background:#eadbcd;
+      color:#6b594f;
+      font-size:12px;
+    }
+    .compare-btn.is-picked{
+      background:#2d211c;
+      color:#fff7eb;
+    }
+    .toolbar{
+      display:flex;
+      gap:14px;
+      justify-content:space-between;
+      align-items:center;
+      margin-bottom:18px;
+    }
+    .toolbar input{
+      width:min(460px,100%);
+      min-height:50px;
+      padding:0 18px;
+      border:1px solid rgba(88,61,49,.16);
+      border-radius:999px;
+      outline:0;
+      background:rgba(255,255,255,.72);
+      color:#332721;
+      box-shadow:inset 0 0 0 1px rgba(255,255,255,.38);
+    }
+    .toolbar input:focus{border-color:rgba(201,121,114,.55);box-shadow:0 0 0 5px rgba(201,121,114,.12)}
+    .tabs{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+    .tab{
+      border:0;
+      border-radius:999px;
+      padding:12px 16px;
+      background:#eadbcd;
+      color:#6b5a50;
+      font-weight:950;
+    }
+    .tab.active{background:#2d211c;color:#fff7eb}
+    .table-card{
+      overflow:auto;
+      border:1px solid rgba(88,61,49,.14);
+      border-radius:28px;
+      background:rgba(255,255,255,.58);
+    }
+    table{
+      width:100%;
+      min-width:1230px;
+      border-collapse:collapse;
+      font-size:14px;
+    }
+    thead{background:#30231d;color:#fff7ec}
+    th,td{padding:16px 18px;text-align:left;vertical-align:top}
+    tbody tr{border-bottom:1px solid rgba(88,61,49,.11)}
+    tbody tr:last-child{border-bottom:0}
+    .name-btn{
+      border:0;
+      padding:0;
+      background:transparent;
+      color:#30231d;
+      font-weight:950;
+      text-decoration:underline;
+      text-decoration-color:rgba(201,121,114,.55);
+      text-underline-offset:5px;
+    }
+    .price-cell{font-weight:950;color:#9d5d43;white-space:nowrap}
+    .note-line{
+      padding:16px 20px;
+      color:#75655b;
+      line-height:1.7;
+      background:rgba(248,239,228,.75);
+      border-top:1px solid rgba(88,61,49,.12);
+    }
+    .quote-list{display:none;gap:14px}
+    .quote-card{
+      width:100%;
+      position:relative;
+      isolation:isolate;
+      overflow:hidden;
+      border:1px solid rgba(88,61,49,.14);
+      border-radius:26px;
+      padding:18px;
+      background:rgba(255,250,241,.82);
+      color:#2e241f;
+      text-align:left;
+      box-shadow:var(--shadow-soft);
+    }
+    .quote-card::before,
+    .quote-card::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      pointer-events:none;
+      opacity:0;
+      transition:opacity .25s ease;
+    }
+    .quote-card::before{
+      z-index:-2;
+      background-image:var(--flavor-image);
+      background-size:cover;
+      background-position:center;
+      transform:scale(1.02);
+    }
+    .quote-card::after{
+      z-index:-1;
+      background:
+        radial-gradient(circle at 74% 20%, rgba(255,232,176,.28), transparent 30%),
+        linear-gradient(180deg,rgba(25,10,6,.14),rgba(25,10,6,.32) 38%,rgba(18,8,5,.86));
+    }
+    .quote-card-top{display:flex;justify-content:space-between;gap:12px;align-items:center}
+    .quote-kind{
+      padding:7px 11px;
+      border-radius:999px;
+      background:#eadbcd;
+      color:#6c584d;
+      font-size:12px;
+      font-weight:950;
+    }
+    .quote-card-price{color:#90563f;font-size:20px;font-weight:950}
+    .quote-card h3{
+      margin:14px 0 0;
+      font-family:var(--font-poster);
+      font-size:32px;
+      line-height:1;
+      letter-spacing:0;
+    }
+    .quote-card-notes{margin:10px 0 0;color:#6a5a50;line-height:1.7}
+    .quote-card-meta{display:grid;gap:8px;margin-top:14px}
+    .quote-card-meta span{
+      display:block;
+      padding:11px 12px;
+      border-radius:16px;
+      background:rgba(255,255,255,.56);
+      color:#6a5a50;
+      font-size:13px;
+      line-height:1.55;
+    }
+    .quote-card-actions{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:10px;
+      margin-top:14px;
+    }
+    .quote-action{
+      min-height:42px;
+      background:#2d211c;
+      color:#fff7eb;
+      font-size:13px;
+    }
+    .quote-action.secondary{
+      background:#eadbcd;
+      color:#5e4a40;
+    }
+    .quote-action.is-picked{
+      background:#d89d35;
+      color:#2a211c;
+    }
+    .quote-empty{
+      padding:28px;
+      border:1px dashed rgba(88,61,49,.22);
+      border-radius:24px;
+      color:#806e64;
+      text-align:center;
+      background:rgba(255,250,241,.62);
+    }
+    .quote-card-origin{display:none}
+
+    .briefing-grid{
+      display:grid;
+      grid-template-columns:1.2fr repeat(3,minmax(0,1fr));
+      gap:14px;
+      padding:clamp(20px,3vw,32px);
+    }
+    .briefing-main{
+      grid-row:span 2;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      min-height:360px;
+      padding:26px;
+      border-radius:30px;
+      background:
+        radial-gradient(circle at 84% 12%, rgba(255,255,255,.22), transparent 30%),
+        linear-gradient(145deg,#30231d,#7d503a);
+      color:#fff7eb;
+    }
+    .briefing-main h2{
+      margin:0;
+      font-family:var(--font-display);
+      font-size:clamp(36px,3rem,48px);
+      line-height:1.08;
+      letter-spacing:0;
+    }
+    .briefing-main p{margin:18px 0 0;color:rgba(255,247,235,.78);line-height:1.8}
+    .contact{
+      margin-top:28px;
+      padding:18px;
+      border-radius:22px;
+      background:rgba(255,255,255,.14);
+      border:1px solid rgba(255,255,255,.18);
+    }
+    .contact label{display:block;color:rgba(255,247,235,.68);font-size:12px;margin-bottom:8px}
+    .contact strong{display:block;font-size:22px;line-height:1.35}
+    .brief-card{
+      min-height:172px;
+      padding:20px;
+      border:1px solid rgba(88,61,49,.14);
+      border-radius:26px;
+      background:rgba(255,250,241,.75);
+      box-shadow:var(--shadow-soft);
+    }
+    .brief-card small{
+      display:block;
+      color:#a16a58;
+      font-size:12px;
+      font-weight:950;
+      letter-spacing:.16em;
+      text-transform:uppercase;
+    }
+    .brief-card h3{margin:20px 0 0;color:#2d231e;font-size:21px}
+    .brief-card p{margin:9px 0 0;color:#6f5f55;line-height:1.65;font-size:14px}
+
+    .about{
+      padding:40px 0 54px;
+    }
+    .about-card{
+      display:grid;
+      grid-template-columns:.8fr 1.2fr;
+      gap:22px;
+      padding:clamp(24px,4vw,42px);
+    }
+    .about-card h2{
+      margin:0;
+      font-family:var(--font-display);
+      font-size:clamp(36px,3rem,48px);
+      line-height:1.08;
+      letter-spacing:0;
+    }
+    .about-card p{margin:18px 0 0;color:#6d5d53;line-height:1.9}
+    .about-grid{
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:14px;
+    }
+    .about-item{
+      padding:20px;
+      border:1px solid rgba(88,61,49,.14);
+      border-radius:24px;
+      background:rgba(255,255,255,.46);
+    }
+    .about-item h3{margin:0;color:#2e231e}
+    .about-item p{margin:10px 0 0;font-size:14px;line-height:1.7}
+
+    footer{padding:0 0 44px}
+    .footer-card{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:16px;
+      padding:20px 24px;
+      border:1px solid rgba(255,255,255,.58);
+      border-radius:28px;
+      background:rgba(255,250,241,.74);
+      box-shadow:var(--shadow-soft);
+      color:#40312a;
+    }
+    .footer-card strong{font-size:20px}
+    .footer-card span{color:#7a6b61;font-weight:800}
+    .toast{
+      position:fixed;
+      z-index:60;
+      left:50%;
+      bottom:26px;
+      transform:translate(-50%,18px);
+      opacity:0;
+      pointer-events:none;
+      padding:12px 16px;
+      border:1px solid rgba(255,255,255,.28);
+      border-radius:999px;
+      background:rgba(45,33,28,.92);
+      color:#fff7eb;
+      font-size:14px;
+      font-weight:900;
+      box-shadow:0 18px 42px rgba(45,31,24,.24);
+      backdrop-filter:blur(14px);
+      transition:opacity .22s ease,transform .22s ease;
+    }
+    .toast.is-visible{opacity:1;transform:translate(-50%,0)}
+
+    .art-floral,.art-citrus,.art-honey,.art-brown-sugar,.art-caramel,.art-cocoa,.art-nutty,.art-fruity,.art-pear,.art-tea,.art-malt,.art-orange,.art-tropical,.art-plum,.art-default,.art-berry,.art-grape,.art-stonefruit,.art-spice,.art-boozy,.art-fresh,.art-cream,.art-smoke{
+      --flavor-image:url('assets/flavors/default.jpg');
+      background-color:#e7ddd3;
+      background-image:
+        linear-gradient(180deg, rgba(255,255,255,.03), rgba(36,25,20,.12)),
+        var(--flavor-image);
+      background-size:cover;
+      background-position:center;
+      background-repeat:no-repeat;
+    }
+    .art-floral{--flavor-image:url('assets/flavors/floral.jpg')}
+    .art-citrus{--flavor-image:url('assets/flavors/citrus.jpg')}
+    .art-orange{--flavor-image:url('assets/flavors/orange.jpg')}
+    .art-tropical{--flavor-image:url('assets/flavors/tropical.jpg')}
+    .art-berry{--flavor-image:url('assets/flavors/berry.jpg')}
+    .art-grape{--flavor-image:url('assets/flavors/grape.jpg')}
+    .art-fruity{--flavor-image:url('assets/flavors/fresh.jpg')}
+    .art-stonefruit{--flavor-image:url('assets/flavors/stonefruit.jpg')}
+    .art-pear{--flavor-image:url('assets/flavors/pear.jpg')}
+    .art-honey{--flavor-image:url('assets/flavors/honey.jpg')}
+    .art-brown-sugar{--flavor-image:url('assets/flavors/brown-sugar.jpg')}
+    .art-caramel{--flavor-image:url('assets/flavors/caramel.jpg')}
+    .art-cocoa{--flavor-image:url('assets/flavors/cocoa.jpg')}
+    .art-nutty{--flavor-image:url('assets/flavors/nutty.jpg')}
+    .art-tea{--flavor-image:url('assets/flavors/tea.jpg')}
+    .art-malt{--flavor-image:url('assets/flavors/malt.jpg')}
+    .art-spice{--flavor-image:url('assets/flavors/spice.jpg')}
+    .art-boozy{--flavor-image:url('assets/flavors/boozy.jpg')}
+    .art-fresh{--flavor-image:url('assets/flavors/fresh.jpg')}
+    .art-cream{--flavor-image:url('assets/flavors/cream.jpg')}
+    .art-smoke{--flavor-image:url('assets/flavors/smoke.jpg')}
+    .art-plum{--flavor-image:url('assets/flavors/stonefruit.jpg')}
+    .art-default{--flavor-image:url('assets/flavors/default.jpg')}
+
+    .reveal{
+      opacity:0;
+      transform:translateY(38px) scale(.985);
+      transition:
+        opacity .78s cubic-bezier(.22,1,.36,1) var(--reveal-delay,0ms),
+        transform .78s cubic-bezier(.22,1,.36,1) var(--reveal-delay,0ms);
+    }
+    .reveal.is-visible{opacity:1;transform:none}
+    .hero .slide-copy > *, .hero .stage{
+      opacity:0;
+      transform:translateY(24px) scale(.98);
+      transition:opacity .9s cubic-bezier(.22,1,.36,1),transform .9s cubic-bezier(.22,1,.36,1);
+    }
+    body.page-ready .hero .slide-copy > *, body.page-ready .hero .stage{opacity:1;transform:none}
+    .hero .slide-copy > *:nth-child(1){transition-delay:.05s}
+    .hero .slide-copy > *:nth-child(2){transition-delay:.14s}
+    .hero .slide-copy > *:nth-child(3){transition-delay:.23s}
+    .hero .stage{transition-delay:.2s}
+
+    @keyframes floatGlow{
+      0%,100%{transform:translate3d(0,0,0) rotate(0)}
+      50%{transform:translate3d(2%,3%,0) rotate(4deg)}
+    }
+    @keyframes floatCard{
+      0%,100%{transform:translate3d(0,0,0) rotate(-1deg)}
+      50%{transform:translate3d(0,-12px,0) rotate(1deg)}
+    }
+
+    @media (max-width:1080px){
+      .deck-grid,.detail-layout,.section-head,.about-card{grid-template-columns:1fr}
+      .deck{min-height:0}
+      .stage{min-height:560px}
+      .hero-metrics{grid-template-columns:repeat(3,minmax(0,1fr))}
+      .flavor-board{grid-template-columns:repeat(3,minmax(0,1fr))}
+      .briefing-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .briefing-main{grid-column:1/-1;grid-row:auto}
+    }
+
+    @media (max-width:720px){
+      .container,.nav{width:min(100% - 28px,1180px)}
+      .nav{top:10px;padding:10px 11px}
+      .brand span{font-size:13px}
+      .nav-links a{display:none}
+      .nav-links a:first-child,.nav-links a:nth-child(2){display:inline-flex;padding:9px 11px;font-size:12px}
+      .hero{padding:42px 0 24px;min-height:auto}
+      .deck{
+        padding:20px;
+        border-radius:32px;
+      }
+      .deck::before{inset:9px;border-radius:24px}
+      .deck-grid{gap:22px;min-height:0}
+      .hero h1{font-size:48px}
+      .hero-intro{font-size:15px;line-height:1.8}
+      .hero-actions .btn{width:100%}
+      .hero-metrics{grid-template-columns:1fr;gap:10px}
+      .metric{min-height:auto;padding:15px}
+      .stage{min-height:430px;border-radius:28px}
+      .presentation-card.card-a{top:22px;left:18px;right:42px;height:230px}
+      .presentation-card.card-b{right:16px;bottom:26px;width:55%;min-width:178px;height:220px}
+      .presentation-card.card-c{left:18px;bottom:48px;width:54%;min-width:174px;height:178px}
+      .card-content{padding:13px 14px}
+      .card-content strong{font-size:24px}
+      .card-content p{display:none}
+      .stage-ribbon{left:14px;right:14px;bottom:12px;overflow-x:auto;scrollbar-width:none;border-radius:22px}
+      .stage-ribbon::-webkit-scrollbar{display:none}
+      .section{padding:48px 0}
+      .section-head{gap:12px;margin-bottom:18px}
+      .section-head p:not(.eyebrow){font-size:15px;line-height:1.75}
+      .slide-panel{border-radius:30px}
+      .detail-layout{min-height:0}
+      .detail-media{min-height:480px}
+      .detail-info{padding:22px}
+      .product-title-row{display:block}
+      .product-title-row span{display:inline-flex;margin-top:14px}
+      .spec-grid{grid-template-columns:1fr}
+      .score{grid-template-columns:78px 1fr 45px}
+      .flavor-board{
+        grid-auto-flow:column;
+        grid-auto-columns:minmax(228px,78vw);
+        grid-template-columns:none;
+        overflow-x:auto;
+        overscroll-behavior-x:contain;
+        scroll-snap-type:x mandatory;
+        padding:3px 2px 10px;
+        scrollbar-width:none;
+      }
+      .flavor-board::-webkit-scrollbar{display:none}
+      .flavor-card{scroll-snap-align:start;min-height:232px}
+      .toolbar{display:grid}
+      .compare-slots{
+        grid-auto-flow:column;
+        grid-auto-columns:minmax(236px,78vw);
+        grid-template-columns:none;
+        overflow-x:auto;
+        overscroll-behavior-x:contain;
+        scroll-snap-type:x mandatory;
+        padding-bottom:4px;
+        scrollbar-width:none;
+      }
+      .compare-slots::-webkit-scrollbar{display:none}
+      .compare-slot{scroll-snap-align:start}
+      .compare-row{
+        grid-template-columns:92px repeat(2,minmax(148px,1fr));
+        min-width:420px;
+      }
+      .compare-rows{overflow-x:auto}
+      .tabs{justify-content:flex-start}
+      .table-card{display:none}
+      .quote-list{display:grid}
+      .quote-panel{padding:16px}
+      .quote-list{gap:18px}
+      .quote-card{
+        min-height:430px;
+        display:flex;
+        flex-direction:column;
+        justify-content:space-between;
+        padding:22px;
+        border:1px solid rgba(255,255,255,.2);
+        border-radius:32px;
+        color:#fffaf1;
+        background:#2d1710;
+        box-shadow:0 22px 52px rgba(52,29,19,.22);
+      }
+      .quote-card::before,.quote-card::after{opacity:1}
+      .quote-card-top{
+        position:relative;
+        z-index:1;
+        align-items:flex-start;
+      }
+      .quote-kind{
+        background:rgba(255,247,235,.9);
+        color:#4a251b;
+        border:1px solid rgba(255,255,255,.28);
+        box-shadow:0 8px 22px rgba(0,0,0,.14);
+      }
+      .quote-card-price{
+        color:#fffaf1;
+        font-family:var(--font-poster);
+        font-size:34px;
+        line-height:1;
+        text-shadow:0 2px 16px rgba(0,0,0,.4);
+      }
+      .quote-card h3{
+        position:relative;
+        z-index:1;
+        max-width:6.5em;
+        margin:34px 0 0;
+        color:#fffaf1;
+        font-family:var(--font-poster);
+        font-size:56px;
+        line-height:.96;
+        letter-spacing:0;
+        text-shadow:0 3px 24px rgba(0,0,0,.42);
+      }
+      .quote-card-notes{
+        position:relative;
+        z-index:1;
+        max-width:94%;
+        margin:18px 0 0;
+        color:rgba(255,250,241,.92);
+        font-size:18px;
+        line-height:1.75;
+        text-shadow:0 2px 14px rgba(0,0,0,.34);
+      }
+      .quote-card-origin{display:none}
+      .quote-card-meta{
+        position:relative;
+        z-index:1;
+        gap:10px;
+        margin-top:auto;
+      }
+      .quote-card-meta span{
+        color:rgba(255,250,241,.92);
+        background:rgba(255,250,241,.13);
+        border:1px solid rgba(255,255,255,.18);
+        backdrop-filter:blur(12px);
+      }
+      .quote-card-actions{
+        position:relative;
+        z-index:1;
+      }
+      .quote-action{
+        background:rgba(255,250,241,.92);
+        color:#331d16;
+      }
+      .quote-action.secondary{
+        background:rgba(255,250,241,.18);
+        color:#fffaf1;
+        border:1px solid rgba(255,255,255,.22);
+      }
+      .quote-action.is-picked{
+        background:#fffaf1;
+        color:#702b1b;
+      }
+      .briefing-grid{grid-template-columns:1fr;padding:16px}
+      .briefing-main{min-height:320px;padding:22px}
+      .about{padding-top:24px}
+      .about-grid{grid-template-columns:1fr}
+      .footer-card{display:grid;align-items:start}
+      .footer-card strong{font-size:18px}
+    }
+
+    @media (max-width:380px){
+      .nav-links a:nth-child(2){display:none}
+      .stage{min-height:400px}
+      .detail-media{min-height:430px}
+      .score{grid-template-columns:1fr}
+      .score span{text-align:left}
+    }
+
+    @media (prefers-reduced-motion:reduce){
+      html{scroll-behavior:auto}
+      *,*::before,*::after{animation:none !important;transition:none !important}
+      .reveal,.hero .slide-copy > *,.hero .stage{opacity:1 !important;transform:none !important}
+    }
+
+    body.mobile-edition{
+      min-width:0;
+      max-width:430px;
+      margin:0 auto;
+      background:
+        radial-gradient(circle at 88% 4%, rgba(217,157,53,.22), transparent 260px),
+        linear-gradient(180deg,#f4eadf 0%,#eadccd 100%);
+      box-shadow:0 0 0 1px rgba(88,61,49,.08),0 28px 80px rgba(45,31,24,.18);
+    }
+    body.mobile-edition::before{background-size:36px 36px}
+    .mobile-edition .container{width:min(100% - 24px,406px)}
+    .mobile-edition .nav{
+      top:8px;
+      width:min(100% - 20px,410px);
+      margin-top:10px;
+      padding:9px 10px 9px 12px;
+    }
+    .mobile-edition .brand span{max-width:130px}
+    .mobile-edition .nav-links{gap:2px}
+    .mobile-edition .nav-links a{padding:8px 8px;font-size:12px}
+    .mobile-edition .hero{min-height:auto;padding:24px 0 20px}
+    .mobile-edition .deck{border-radius:28px;min-height:auto}
+    .mobile-edition .deck-grid,
+    .mobile-edition .detail-layout,
+    .mobile-edition .section-head,
+    .mobile-edition .about-card{grid-template-columns:1fr}
+    .mobile-edition .slide-copy{min-height:auto;padding:22px}
+    .mobile-edition .slide-no{font-size:11px}
+    .mobile-edition .hero h1{font-size:44px;line-height:1.04}
+    .mobile-edition .hero-intro{font-size:15px;line-height:1.75}
+    .mobile-edition .hero-actions .btn{width:100%}
+    .mobile-edition .hero-metrics{grid-template-columns:1fr;gap:10px}
+    .mobile-edition .stage{display:none}
+    .mobile-edition .section{padding:28px 0}
+    .mobile-edition .section-head{gap:10px;margin-bottom:16px;align-items:start}
+    .mobile-edition .section-head h2{font-size:34px}
+    .mobile-edition .section-head p:not(.eyebrow){font-size:14px;line-height:1.7}
+    .mobile-edition .detail-media{min-height:360px}
+    .mobile-edition .detail-info{padding:22px}
+    .mobile-edition .product-title-row{display:grid;gap:12px}
+    .mobile-edition .product-title-row h3{font-size:34px}
+    .mobile-edition .spec-grid{grid-template-columns:1fr}
+    .mobile-edition .flavor-board{
+      display:grid;
+      grid-auto-flow:column;
+      grid-auto-columns:minmax(240px,78vw);
+      overflow-x:auto;
+      overscroll-behavior-x:contain;
+      scroll-snap-type:x mandatory;
+      padding:2px 2px 8px;
+      scrollbar-width:none;
+    }
+    .mobile-edition .flavor-board::-webkit-scrollbar{display:none}
+    .mobile-edition .flavor-card{scroll-snap-align:start;min-height:232px}
+    .mobile-edition .quote-panel{padding:14px}
+    .mobile-edition .toolbar{display:grid}
+    .mobile-edition .tabs{justify-content:flex-start}
+    .mobile-edition .table-card{display:none}
+    .mobile-edition .quote-list{display:grid;gap:18px}
+    .mobile-edition .quote-card{
+      min-height:440px;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      padding:22px;
+      border:1px solid rgba(255,255,255,.2);
+      border-radius:32px;
+      color:#fffaf1;
+      background:#2d1710;
+      box-shadow:0 22px 52px rgba(52,29,19,.22);
+    }
+    .mobile-edition .quote-card::before,
+    .mobile-edition .quote-card::after{opacity:1}
+    .mobile-edition .quote-card-top,
+    .mobile-edition .quote-card h3,
+    .mobile-edition .quote-card-notes,
+    .mobile-edition .quote-card-meta,
+    .mobile-edition .quote-card-actions{position:relative;z-index:1}
+    .mobile-edition .quote-kind{
+      background:rgba(255,247,235,.9);
+      color:#4a251b;
+      border:1px solid rgba(255,255,255,.28);
+      box-shadow:0 8px 22px rgba(0,0,0,.14);
+    }
+    .mobile-edition .quote-card-price{
+      color:#fffaf1;
+      font-family:var(--font-poster);
+      font-size:34px;
+      line-height:1;
+      text-shadow:0 2px 16px rgba(0,0,0,.4);
+    }
+    .mobile-edition .quote-card h3{
+      max-width:6.5em;
+      margin:34px 0 0;
+      color:#fffaf1;
+      font-family:var(--font-poster);
+      font-size:56px;
+      line-height:.96;
+      letter-spacing:0;
+      text-shadow:0 3px 24px rgba(0,0,0,.42);
+    }
+    .mobile-edition .quote-card-notes{
+      max-width:94%;
+      margin:18px 0 0;
+      color:rgba(255,250,241,.92);
+      font-size:18px;
+      line-height:1.75;
+      text-shadow:0 2px 14px rgba(0,0,0,.34);
+    }
+    .mobile-edition .quote-card-meta{gap:10px;margin-top:auto}
+    .mobile-edition .quote-card-meta span{
+      color:rgba(255,250,241,.92);
+      background:rgba(255,250,241,.13);
+      border:1px solid rgba(255,255,255,.18);
+      backdrop-filter:blur(12px);
+    }
+    .mobile-edition .quote-action{background:rgba(255,250,241,.92);color:#331d16}
+    .mobile-edition .quote-action.secondary{
+      background:rgba(255,250,241,.18);
+      color:#fffaf1;
+      border:1px solid rgba(255,255,255,.22);
+    }
+    .mobile-edition .briefing-grid{grid-template-columns:1fr;padding:16px}
+    .mobile-edition .briefing-main{min-height:300px;padding:22px}
+    .mobile-edition .about{padding-top:24px}
+    .mobile-edition .about-grid{grid-template-columns:1fr}
+  </style>
+</head>
+<body class="mobile-edition">
+  <div class="scroll-progress" aria-hidden="true"><span></span></div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <nav class="nav" aria-label="页面导航">
+    <a class="brand" href="#top" aria-label="返回顶部">
+      <i class="brand-mark" aria-hidden="true"></i>
+      <span>咖啡豆批发报价单</span>
+    </a>
+    <div class="nav-links">
+      <a href="#detail">风味介绍</a>
+      <a href="#quote">报价单</a>
+      <a href="#wholesale">批发说明</a>
+      <a href="#about">关于我们</a>
+    </div>
+  </nav>
+
+  <header class="hero" id="top">
+    <div class="container">
+      <div class="deck">
+        <div class="deck-grid">
+          <div class="slide-copy">
+            <div>
+              <div class="slide-no">第 01 页 / 批发报价</div>
+              <h1>精品咖啡豆<span>批发报价单</span></h1>
+              <p class="hero-intro">面向咖啡馆、餐饮和零售客户整理。先了解每款豆子的风味和适用做法，再对照价格、规格与起订规则，方便快速选品。</p>
+              <div class="hero-actions">
+                <a class="btn primary" href="#detail">看风味介绍</a>
+                <a class="btn secondary" href="#quote">看报价单</a>
+              </div>
+            </div>
+
+            <div class="hero-metrics" aria-label="批发摘要">
+              <div class="metric"><strong>10kg</strong><span>批发订单 10kg 起，全国包邮，适合门店日常备货。</span></div>
+              <div class="metric"><strong>3天</strong><span>付款后安排烘焙与发货，通常 3 天内寄出。</span></div>
+              <div class="metric"><strong>1kg</strong><span>单品豆支持 1kg 起混批，方便先做菜单测试。</span></div>
+            </div>
+          </div>
+
+          <div class="stage" aria-label="咖啡风味视觉封面">
+            <div class="presentation-card card-a">
+              <div class="card-art art-tropical"></div>
+              <div class="card-content">
+                <small>Tropical / Citrus</small>
+                <strong>花魁 SOE</strong>
+                <p>热带水果、柑橘和梨汁感突出，适合 SOE、手冲和冰咖啡。</p>
+              </div>
+            </div>
+            <div class="presentation-card card-b">
+              <div class="card-art art-cocoa"></div>
+              <div class="card-content">
+                <small>Cocoa / Caramel</small>
+                <strong>黑森林</strong>
+                <p>焦糖与可可风味稳定，酸感低、口感厚实，适合美式和奶咖。</p>
+              </div>
+            </div>
+            <div class="presentation-card card-c">
+              <div class="card-art art-floral"></div>
+              <div class="card-content">
+                <small>Floral / Grape</small>
+                <strong>夏日限定</strong>
+                <p>茉莉、柠檬和奶油葡萄调性清爽，适合做季节限定菜单。</p>
+              </div>
+            </div>
+            <div class="stage-ribbon" aria-hidden="true">
+              <span>风味介绍</span><span>报价单</span><span>批发说明</span><span>手机浏览</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="section" id="detail">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">第 02 页 / 风味介绍</p>
+            <h2>风味介绍</h2>
+          </div>
+          <p>点击品名查看对应豆款的风味、产区、处理法、烘焙度和推荐做法。</p>
+        </div>
+
+        <div class="slide-panel" id="detailPanel"></div>
+        <div class="flavor-board" id="flavorBoard" aria-label="当前咖啡豆风味卡"></div>
+      </div>
+    </section>
+
+    <section class="section" id="quote">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">第 03 页 / 报价单</p>
+            <h2>报价单</h2>
+          </div>
+          <p>按品类筛选或搜索品名、风味、产区、处理法；选择两款豆子可以查看对比。</p>
+        </div>
+
+        <div class="slide-panel quote-panel">
+          <div class="compare-panel" id="comparePanel" aria-label="咖啡豆两款对比"></div>
+
+          <div class="toolbar">
+            <input id="searchInput" placeholder="搜索品名、风味、产区、处理法..." />
+            <div class="tabs" id="tabs"></div>
+          </div>
+
+          <div class="table-card">
+            <table>
+              <thead>
+                <tr>
+                  <th style="width:130px">类型</th>
+                  <th style="width:150px">品名</th>
+                  <th>核心风味</th>
+                  <th style="width:130px">价格</th>
+                  <th style="width:110px">烘焙度</th>
+                  <th>产区 / 组成 / 处理法</th>
+                  <th style="width:110px">对比</th>
+                </tr>
+              </thead>
+              <tbody id="quoteBody"></tbody>
+            </table>
+            <div class="note-line">备注：单品豆支持 1kg 起混批。实际价格会根据生豆批次、库存和烘焙计划做同步更新。</div>
+          </div>
+
+          <div class="quote-list" id="quoteList"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="wholesale">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">第 04 页 / 批发说明</p>
+            <h2>下单与发货说明</h2>
+          </div>
+          <p>这里整理了合作前最常确认的信息：起订量、发货时间、养豆建议、赏味期和保存方式。</p>
+        </div>
+
+        <div class="slide-panel briefing-grid">
+          <div class="briefing-main">
+            <div>
+              <p class="eyebrow" style="color:#f4c989">Wholesale</p>
+              <h2>获取最新报价</h2>
+              <p>欢迎联系确认库存、批次和合作价格。可供应门店常规意式豆、SOE、手冲单品、季节限定豆和零售包装。</p>
+            </div>
+            <div class="contact">
+              <label>联系人 / 微信同号</label>
+              <strong>琪琪 19520355302</strong>
+            </div>
+          </div>
+          <div class="brief-card"><small>Order</small><h3>10kg 起订包邮</h3><p>批发订单 10kg 起，全国包邮，适合门店稳定补货。</p></div>
+          <div class="brief-card"><small>Delivery</small><h3>通常 3 天内发货</h3><p>付款后安排烘焙与发货，周日不安排发货。</p></div>
+          <div class="brief-card"><small>Freshness</small><h3>建议 60 天内使用</h3><p>完成养豆后，建议在 60 天内使用，风味表现更稳定。</p></div>
+          <div class="brief-card"><small>Storage</small><h3>避光密封保存</h3><p>建议放在阴凉避光处，尽量保持温湿度稳定。</p></div>
+          <div class="brief-card"><small>Resting</small><h3>按烘焙度养豆</h3><p>深烘建议约 15 天，浅烘建议约 7 天，可按气温调整。</p></div>
+          <div class="brief-card"><small>Single Origin</small><h3>单品豆 1kg 起混批</h3><p>适合先做手冲菜单、SOE 或小批量零售测试。</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="about" id="about">
+      <div class="container">
+        <div class="slide-panel about-card">
+          <div>
+            <p class="eyebrow">第 05 页 / 关于我们</p>
+            <h2>关于我们</h2>
+            <p>我们是位于上海的咖啡豆烘焙工厂，长期为咖啡馆、餐饮和零售客户提供烘焙、选豆与包装支持。</p>
+          </div>
+          <div class="about-grid">
+            <div class="about-item"><h3>烘焙设备</h3><p>工厂面积约千平，配备瑞士布勒全热风烘焙机和德国波霸半热风半直火烘焙机，日产能约 3 吨。</p></div>
+            <div class="about-item"><h3>烘焙经验</h3><p>主理烘焙师拥有十年烘焙经验，曾获 2015 年全国咖啡豆烘焙赛西南赛区冠军。</p></div>
+            <div class="about-item"><h3>稳定出品</h3><p>从生豆筛选、烘焙曲线到出货品控，尽量保持每一批豆子的风味稳定。</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-card">
+      <strong>琪琪 19520355302（微信同号）</strong>
+      <span>10kg 起订包邮 ｜ 单品豆 1kg 起混批</span>
+    </div>
+  </footer>
+
+  <script>
+    const flavorMap = {};
+
+    function registerFlavor(notes, meta){
+      notes.forEach(note => {
+        flavorMap[note] = { ...meta };
+      });
+    }
+
+    registerFlavor(['茉莉花'], { en:'Jasmine', desc:'花香轻盈细腻，适合清爽型咖啡。', cls:'art-floral' });
+    registerFlavor(['花香','白色花香','白色','茉莉'], { en:'Floral', desc:'香气干净优雅，尾韵细致。', cls:'art-floral' });
+    registerFlavor(['柑橘','柠檬','西柚','葡萄柚','青苹果','香水柠檬'], { en:'Bright Citrus', desc:'酸质明亮，入口清爽，带有清晰果皮香。', cls:'art-citrus' });
+    registerFlavor(['甜橙','陈皮','烤橘子皮','橘子糖'], { en:'Sweet Citrus', desc:'柑橘甜感更圆润，带一点果皮香。', cls:'art-orange' });
+    registerFlavor(['热带水果','百香果','香蕉'], { en:'Tropical Fruit', desc:'水果香气饱满、辨识度高。', cls:'art-tropical' });
+    registerFlavor(['黄皮水果','黄杏柑橘'], { en:'Yellow Fruit', desc:'偏成熟黄果调，甜感柔和。', cls:'art-stonefruit' });
+    registerFlavor(['果香','果汁感','果汁','清爽','猕猴桃'], { en:'Fresh Fruit', desc:'果调清晰，入口活泼清爽。', cls:'art-fresh' });
+    registerFlavor(['莓果','草莓','草莓酱','蓝莓','红色浆果'], { en:'Berry', desc:'莓果酸甜集中，香气辨识度高。', cls:'art-berry' });
+    registerFlavor(['梨汁'], { en:'Pear Juice', desc:'清甜细腻，汁水感明显。', cls:'art-pear' });
+    registerFlavor(['柚子青梅','李子','果脯','核果','蜜桃','蜜桃果汁','桃汁','杏桃'], { en:'Stone Fruit', desc:'成熟果香明显，甜感细致，余韵更长。', cls:'art-stonefruit' });
+    registerFlavor(['葡萄','葡萄尾韵','奶油葡萄'], { en:'Grape', desc:'带葡萄和熟果尾韵，香气集中。', cls:'art-grape' });
+    registerFlavor(['蜂蜜','甘蔗','蔗糖','甜香'], { en:'Sweet Syrup', desc:'甜感明显，口感圆润，尾韵干净。', cls:'art-honey' });
+    registerFlavor(['黑糖','枫糖','枫糖浆'], { en:'Brown Sugar', desc:'深色糖浆甜感，口感圆润，尾韵干净。', cls:'art-brown-sugar' });
+    registerFlavor(['焦糖','焦糖酱','黄油','奶油','奶油饼干'], { en:'Caramel Cream', desc:'甜感厚实，口感顺滑，适合奶咖。', cls:'art-caramel' });
+    registerFlavor(['可可','黑巧','朱古力','浓郁','浓郁无酸','低酸','红薯'], { en:'Cocoa Rich', desc:'可可和黑巧风味明显，杯感更厚实。', cls:'art-cocoa' });
+    registerFlavor(['坚果','榛果','烤榛果','杏仁','花生糖'], { en:'Nutty', desc:'坚果和烘烤香稳定，适合日常咖啡。', cls:'art-nutty' });
+    registerFlavor(['红茶','红茶感','乌龙茶','绿茶','雏菊绿茶'], { en:'Tea-like', desc:'茶感干净，收口清晰，适合手冲。', cls:'art-tea' });
+    registerFlavor(['麦芽糖','肉桂','肉豆蔻','香草'], { en:'Spiced Sweet', desc:'甜香中带轻微香料感，层次更丰富。', cls:'art-spice' });
+    registerFlavor(['朗姆酒香','酒心巧克力','川茶ipa'], { en:'Boozy', desc:'带发酵感或酒香联想，风味更有记忆点。', cls:'art-boozy' });
+    registerFlavor(['奶咖高甜','中高醇厚度','干净顺滑'], { en:'Smooth Body', desc:'口感顺滑，甜感稳定，适合奶咖。', cls:'art-cream' });
+    registerFlavor(['烟草'], { en:'Tobacco', desc:'带一点烟草和木质调，收口更成熟。', cls:'art-smoke' });
+
+    flavorMap.default = { en:'Flavor Note', desc:'主要风味参考。', cls:'art-default' };
+
+    const blendGroups = [
+      {category:'基础拼配', rows:[
+        ['黑森林','焦糖、可可、浓郁无酸','97元/kg','88元/kg','中深','哥伦比亚（水洗）、巴西（日晒）、乌干达（日晒）'],
+        ['烟花','烤榛果、橘子糖、干净顺滑','129元/kg','119元/kg','中深','巴西（日晒）、埃塞俄比亚（水洗）、中国云南（水洗）'],
+        ['大白兔','坚果、黄油、焦糖','129元/kg','119元/kg','中深','埃塞俄比亚（水洗）、巴西（日晒）、印度尼西亚'],
+        ['焦糖','黑糖、蜂蜜、肉豆蔻','139元/kg','129元/kg','中深','哥伦比亚（水洗）、印度尼西亚、秘鲁'],
+        ['阿尔卑斯','杏仁、枫糖浆、中高醇厚度','145元/kg','133元/kg','中深','哥伦比亚（水洗）、埃塞俄比亚（水洗）'],
+        ['黑巧克力','朱古力、奶油饼干','154元/kg','139元/kg','中深','哥斯达黎加（黑蜜）、哥伦比亚（水洗）、巴西（日晒）'],
+        ['糖渍橙子','肉桂、烤橘子皮','154元/kg','139元/kg','深','埃塞俄比亚（水洗）、哥伦比亚（水洗）、越南（水洗）'],
+      ]},
+      {category:'风味拼配', rows:[
+        ['dip香草','香草、酒心巧克力、蜂蜜','154元/kg','139元/kg','中深','洪都拉斯（酒桶发酵）、埃塞俄比亚（日晒）、巴西（日晒）'],
+        ['1.0朗姆','朗姆酒香、葡萄尾韵','139元/kg','129元/kg','中','哥伦比亚（酒桶发酵）、巴西（日晒）、危地马拉（水洗）'],
+        ['5.0布林','柑橘、红色浆果','165元/kg','148元/kg','浅中','埃塞俄比亚（日晒）、哥伦比亚（日晒）、第三组成'],
+        ['黄樱桃','莓果、热带水果、果汁','165元/kg','139元/kg','中深','埃塞俄比亚 天春（日晒）、哥伦比亚（水洗）、巴西（日晒）'],
+        ['夏日限定','茉莉花、柠檬、奶油葡萄','178元/kg','158元/kg','浅中','瑰夏（水洗）、埃塞俄比亚（厌氧水洗）、蜜处理、哥伦比亚（定向发酵）'],
+      ]},
+      {category:'SOE', rows:[
+        ['花魁SOE','热带水果、柑橘、梨汁','189元/kg','179元/kg','浅中','埃塞俄比亚 罕贝拉（日晒）'],
+        ['沃卡SOE','柑橘、红茶、奶咖高甜','168元/kg','160元/kg','中','埃塞俄比亚 耶加雪菲（水洗）'],
+        ['露玛','蓝莓、葡萄、百香果、甜橙','215元/kg','189元/kg','浅中','埃塞俄比亚 耶加雪菲科契尔 / 塞尔瓦庄园'],
+        ['9.0桃花','蜜桃果汁、麦芽糖、乌龙茶','190元/kg','179元/kg','浅中','埃塞俄比亚（日晒）、埃塞俄比亚（酵素水洗）'],
+      ]}
+    ];
+
+    const singleOrigins = [
+      ['巴拿马','卡门瑰夏','白色花香、柚子青梅、枫糖','250元/250g','浅中','水洗','Geisha'],
+      ['巴拿马','卡门瑰夏','甜橙、香水柠檬、果脯、蜂蜜','250元/250g','浅中','日晒','Geisha'],
+      ['巴拿马','马拉哥吉佩','莓果、李子、蔗糖','95元/250g','浅中','日晒','马拉哥吉佩'],
+      ['肯尼亚裂谷','古马晨曦','葡萄柚、红茶、黄皮水果','210元/500g','浅烘','水洗','SL28 & SL34'],
+      ['埃塞俄比亚','瑰夏村','柑橘、桃汁、枫糖','160元/500g','浅中','日晒','埃塞原生种'],
+      ['埃塞俄比亚','花魁','热带水果、柑橘、花香','120元/500g','浅烘','日晒','Heirloom'],
+      ['埃塞俄比亚','神秘农场','白色花香、杏桃、核果、柑橘','150元/500g','浅烘','水洗','74110'],
+      ['埃塞俄比亚','歌德','白色花香、柠檬、柑橘、猕猴桃','130元/500g','浅烘','水洗','Heirloom'],
+      ['埃塞俄比亚','柑橘茉莉','茉莉、柑橘、青苹果、西柚','120元/500g','浅中','水洗','耶加雪菲'],
+      ['埃塞俄比亚','红樱桃','草莓、蓝莓、甘蔗','130元/500g','浅中','厌氧日晒','74158'],
+      ['埃塞俄比亚','桃乐茜','蜜桃、麦芽糖、乌龙茶','155元/500g','浅中','酵素水洗（特殊）','Heirloom'],
+      ['哥伦比亚','哥伦低因','红薯、甘蔗、甜香','92元/500g','中深','瑞士水洗','卡杜艾'],
+      ['哥伦比亚','啤酒花','黄杏柑橘、雏菊绿茶、川茶ipa','160元/500g','浅烘','啤酒花发酵水洗','卡杜拉'],
+      ['哥伦比亚','哥伦比亚玫瑰谷','草莓酱、蜜桃、蜂蜜','132元/500g','中烘','酵素水洗（特殊）','卡杜拉'],
+      ['危地马拉','蓝湖','柑橘、红茶、烟草','110元/500g','中深','水洗','波旁'],
+      ['洪都拉斯','月桂','香蕉、蜂蜜、绿茶','158元/500g','浅烘','水洗','parainema'],
+      ['洪都拉斯','雪莉','香草、奶油、蜂蜜','118元/500g','浅烘','酒桶发酵（特殊）','铁皮卡'],
+      ['印尼','黄金曼特宁','榛果、焦糖酱、奶油','98元/500g','中深','湿刨法','铁皮卡'],
+      ['云南孟连','醉莲','杏桃、花香、红茶感','98元/500g','中烘','厌氧日晒','卡迪姆'],
+      ['云南普洱','紫叶卡杜拉','柑橘、陈皮、花生糖','98元/500g','中烘','水洗','紫叶卡杜拉'],
+    ];
+
+    const featuredProducts = [
+      {
+        id:'huakui-soe', name:'花魁SOE', en:'Hua Kui SOE', category:'SOE', price:'189元/kg', roast:'浅中',
+        origin:'埃塞俄比亚 罕贝拉', process:'日晒', altitude:'1,900-2,100m', brew:'手冲 / SOE / 冰冲', spec:'1kg / 10kg / 25kg',
+        notes:['热带水果','柑橘','梨汁','花香','蜂蜜','果汁感'], color:'#d48d96',
+        desc:'花魁SOE以热带水果和柑橘调性为主，入口香气明亮，梨汁般的清甜感明显，适合作为门店 SOE、手冲菜单或季节限定豆款。'
+      }
+    ];
+
+    let selectedProduct = featuredProducts[0];
+    let compareProducts = [];
+    let query = '';
+    let view = '全部';
+    let revealObserver = null;
+    let toastTimer = null;
+
+    function escapeHtml(value){
+      return String(value)
+        .replaceAll('&','&amp;')
+        .replaceAll('<','&lt;')
+        .replaceAll('>','&gt;')
+        .replaceAll('"','&quot;')
+        .replaceAll("'",'&#039;');
+    }
+
+    function splitFlavor(text){
+      return text
+        .replace(/\+/g,'、')
+        .split(/[、，,\/]/)
+        .map(v=>v.trim())
+        .filter(Boolean)
+        .slice(0,8);
+    }
+
+    function roastLevel(roast){
+      if(roast.includes('浅') && roast.includes('中')) return 2;
+      if(roast.includes('浅')) return 1;
+      if(roast.includes('中深')) return 4;
+      if(roast.includes('深')) return 5;
+      if(roast.includes('中')) return 3;
+      return 3;
+    }
+
+    function sensoryScores(product){
+      const r = roastLevel(product.roast);
+      const acidity = product.notes.some(n => ['柑橘','柠檬','热带水果','果香','白色花香','茉莉花','西柚','葡萄柚'].includes(n)) ? 76 : 42;
+      const sweetness = product.notes.some(n => ['蜂蜜','枫糖','焦糖','甜橙','梨汁','奶油葡萄','黑糖','甘蔗'].includes(n)) ? 80 : 60;
+      const body = r >= 4 ? 86 : (r === 3 ? 66 : 52);
+      return [
+        {label:'烘焙', value:r * 20, text:product.roast},
+        {label:'酸质', value:acidity, text:acidity >= 65 ? '明亮' : '柔和'},
+        {label:'口感', value:body, text:body >= 75 ? '饱满' : body >= 55 ? '中等' : '轻盈'},
+        {label:'甜感', value:sweetness, text:sweetness >= 70 ? '突出' : '适中'},
+      ];
+    }
+
+    function productKey(product){
+      return `${product.category}::${product.origin}::${product.name}::${product.price}`;
+    }
+
+    function isCompared(product){
+      const key = productKey(product);
+      return compareProducts.some(item => productKey(item) === key);
+    }
+
+    function flavorInfo(name){
+      return flavorMap[name] || flavorMap.default;
+    }
+
+    function artClass(name){
+      return flavorInfo(name).cls;
+    }
+
+    function buildProductFromBlend(row, category){
+      return {
+        id: `${category}-${row[0]}`,
+        name: row[0],
+        en: category,
+        category,
+        price: row[2],
+        roast: row[4],
+        origin: row[5],
+        process: category === 'SOE' ? '以对应产区为准' : '拼配豆',
+        altitude: '综合批次',
+        brew: category === '基础拼配' ? '意式 / 奶咖 / 美式' : '手冲 / 特调 / SOE',
+        spec: '10kg / 25kg',
+        notes: splitFlavor(row[1]),
+        color: category === '基础拼配' ? '#6d5146' : category === '风味拼配' ? '#d59b43' : '#7ea6ab',
+        desc: `${row[0]}属于${category}，风味以${row[1]}为主，烘焙度为${row[4]}。适合门店日常出品、特色咖啡或季节限定饮品。`
+      };
+    }
+
+    function buildProductFromSingle(row){
+      return {
+        id: `${row[0]}-${row[1]}-${row[3]}`,
+        name: row[1],
+        en: row[0],
+        category: '单品咖啡豆',
+        price: row[3],
+        roast: row[4],
+        origin: row[0],
+        process: row[5],
+        altitude: '以实际批次为准',
+        brew: '手冲 / SOE / 精品菜单',
+        spec: '250g / 500g / 1kg',
+        notes: splitFlavor(row[2]),
+        color: '#cf8c95',
+        desc: `${row[1]}来自${row[0]}，风味以${row[2]}为主。处理法为${row[5]}，烘焙度为${row[4]}，适合单品手冲、SOE 或精品咖啡菜单。`
+      };
+    }
+
+    function renderDetail(){
+      const panel = document.getElementById('detailPanel');
+      const primaryNote = selectedProduct.notes[0] || 'default';
+      const scores = sensoryScores(selectedProduct);
+
+      panel.innerHTML = `
+        <div class="detail-layout">
+          <div class="detail-media">
+            <div class="detail-photo ${artClass(primaryNote)}"></div>
+            <div class="detail-big-number">02</div>
+            <div class="detail-media-copy">
+              <span class="tag">${escapeHtml(selectedProduct.category)}</span>
+              <h3>${escapeHtml(selectedProduct.name)}</h3>
+              <p>${escapeHtml(selectedProduct.notes.slice(0,4).join(' / '))}</p>
+            </div>
+          </div>
+          <div class="detail-info">
+            <div class="product-title-row">
+              <h3>${escapeHtml(selectedProduct.name)}</h3>
+              <span>${escapeHtml(selectedProduct.price)}</span>
+            </div>
+            <p class="product-desc">${escapeHtml(selectedProduct.desc)}</p>
+            <div class="spec-grid">
+              <div class="spec"><label>产区 / 组成</label><strong>${escapeHtml(selectedProduct.origin)}</strong></div>
+              <div class="spec"><label>处理法</label><strong>${escapeHtml(selectedProduct.process)}</strong></div>
+              <div class="spec"><label>烘焙度</label><strong>${escapeHtml(selectedProduct.roast)}</strong></div>
+              <div class="spec"><label>推荐做法</label><strong>${escapeHtml(selectedProduct.brew)}</strong></div>
+              <div class="spec"><label>规格</label><strong>${escapeHtml(selectedProduct.spec)}</strong></div>
+              <div class="spec"><label>批次信息</label><strong>${escapeHtml(selectedProduct.altitude)}</strong></div>
+            </div>
+            <div class="score-list">
+              ${scores.map(item => `
+                <div class="score">
+                  <label>${escapeHtml(item.label)}</label>
+                  <div class="score-track"><i style="--score:${item.value}%"></i></div>
+                  <span>${escapeHtml(item.text)}</span>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        </div>
+      `;
+
+      document.getElementById('flavorBoard').innerHTML = selectedProduct.notes.slice(0,6).map(note => {
+        const info = flavorInfo(note);
+        return `
+          <article class="flavor-card">
+            <div class="flavor-art ${info.cls}"></div>
+            <div class="flavor-body">
+              <strong>${escapeHtml(note)}</strong>
+              <small>${escapeHtml(info.en)}</small>
+              <p>${escapeHtml(info.desc)}</p>
+            </div>
+          </article>
+        `;
+      }).join('');
+    }
+
+    function renderTabs(){
+      const tabs = ['全部','拼配 / SOE','单品豆'];
+      document.getElementById('tabs').innerHTML = tabs.map(tab => `
+        <button class="tab ${view === tab ? 'active' : ''}" data-tab="${tab}">${tab}</button>
+      `).join('');
+      document.querySelectorAll('.tab').forEach(btn => btn.addEventListener('click', () => {
+        view = btn.getAttribute('data-tab');
+        renderTabs();
+        renderQuote();
+        setupReveals();
+        updateScrollProgress();
+      }));
+    }
+
+    function compareValue(product, type){
+      if (!product) return '';
+      if (type === 'price') return product.price;
+      if (type === 'roast') return product.roast;
+      if (type === 'notes') return product.notes.slice(0,5).join('、');
+      if (type === 'origin') return product.origin;
+      if (type === 'process') return product.process;
+      if (type === 'brew') return product.brew;
+      if (type === 'body'){
+        const body = sensoryScores(product).find(item => item.label === '口感');
+        return body ? body.text : '';
+      }
+      return '';
+    }
+
+    function posterOriginText(value){
+      return String(value)
+        .replace(/（[^）]*）/g, '')
+        .replace(/[、，,]/g, ' / ')
+        .replace(/\s*\/\s*/g, ' / ');
+    }
+
+    function renderCompare(){
+      const panel = document.getElementById('comparePanel');
+      if (!panel) return;
+      const slots = [0, 1].map(index => {
+        const product = compareProducts[index];
+        if (!product){
+          return `
+            <div class="compare-slot">
+              <div class="compare-empty">选择第 ${index + 1} 款咖啡豆<br>点击报价里的“加入对比”</div>
+            </div>
+          `;
+        }
+        return `
+          <div class="compare-slot is-filled">
+            <div>
+              <small>${escapeHtml(product.category)}</small>
+              <h3>${escapeHtml(product.name)}</h3>
+              <p>${escapeHtml(product.notes.slice(0,5).join('、'))}</p>
+              <span class="compare-price">${escapeHtml(product.price)}</span>
+            </div>
+            <button class="compare-remove" type="button" data-remove-compare="${escapeHtml(productKey(product))}">移出对比</button>
+          </div>
+        `;
+      }).join('');
+
+      const rows = compareProducts.length === 2 ? `
+        <div class="compare-rows" aria-label="对比结果">
+          <div class="compare-row"><label>价格</label><strong>${escapeHtml(compareValue(compareProducts[0], 'price'))}</strong><strong>${escapeHtml(compareValue(compareProducts[1], 'price'))}</strong></div>
+          <div class="compare-row"><label>烘焙</label><span>${escapeHtml(compareValue(compareProducts[0], 'roast'))}</span><span>${escapeHtml(compareValue(compareProducts[1], 'roast'))}</span></div>
+          <div class="compare-row"><label>风味</label><span>${escapeHtml(compareValue(compareProducts[0], 'notes'))}</span><span>${escapeHtml(compareValue(compareProducts[1], 'notes'))}</span></div>
+          <div class="compare-row"><label>产区</label><span>${escapeHtml(compareValue(compareProducts[0], 'origin'))}</span><span>${escapeHtml(compareValue(compareProducts[1], 'origin'))}</span></div>
+          <div class="compare-row"><label>处理</label><span>${escapeHtml(compareValue(compareProducts[0], 'process'))}</span><span>${escapeHtml(compareValue(compareProducts[1], 'process'))}</span></div>
+          <div class="compare-row"><label>适合</label><span>${escapeHtml(compareValue(compareProducts[0], 'brew'))}</span><span>${escapeHtml(compareValue(compareProducts[1], 'brew'))}</span></div>
+          <div class="compare-row"><label>口感</label><span>${escapeHtml(compareValue(compareProducts[0], 'body'))}</span><span>${escapeHtml(compareValue(compareProducts[1], 'body'))}</span></div>
+        </div>
+      ` : '';
+
+      panel.innerHTML = `
+        <div class="compare-head">
+          <div>
+            <small>Compare</small>
+            <strong>选择两款咖啡豆进行对比</strong>
+          </div>
+          <button class="compare-clear" type="button" data-clear-compare ${compareProducts.length ? '' : 'disabled'}>清空</button>
+        </div>
+        <div class="compare-slots">${slots}</div>
+        ${rows}
+      `;
+
+      panel.querySelectorAll('[data-remove-compare]').forEach(button => {
+        button.addEventListener('click', () => {
+          const key = button.getAttribute('data-remove-compare');
+          compareProducts = compareProducts.filter(product => productKey(product) !== key);
+          renderCompare();
+          renderQuote();
+          setupReveals();
+        });
+      });
+      const clearButton = panel.querySelector('[data-clear-compare]');
+      if (clearButton){
+        clearButton.addEventListener('click', () => {
+          compareProducts = [];
+          renderCompare();
+          renderQuote();
+          setupReveals();
+        });
+      }
+    }
+
+    function addToCompare(product){
+      const key = productKey(product);
+      if (compareProducts.some(item => productKey(item) === key)){
+        showToast('这款已经在对比里');
+        return;
+      }
+      compareProducts = compareProducts.length >= 2 ? [compareProducts[1], product] : [...compareProducts, product];
+      renderCompare();
+      renderQuote();
+      setupReveals();
+      showToast(compareProducts.length === 2 ? '已生成两款对比' : '已加入对比，再选一款');
+    }
+
+    function includesQuery(values, q){
+      return values.join(' ').toLowerCase().includes(q.trim().toLowerCase());
+    }
+
+    function selectProduct(product){
+      selectedProduct = product;
+      renderDetail();
+      setupReveals();
+      document.getElementById('detail').scrollIntoView({behavior:'smooth', block:'start'});
+    }
+
+    function renderQuote(){
+      const body = document.getElementById('quoteBody');
+      const quoteList = document.getElementById('quoteList');
+      const filteredBlendGroups = blendGroups
+        .map(group => ({ ...group, rows: group.rows.filter(row => includesQuery([group.category, ...row], query)) }))
+        .filter(group => group.rows.length > 0);
+      const filteredSingleOrigins = singleOrigins.filter(row => includesQuery(row, query));
+
+      let html = '';
+      let cardHtml = '';
+
+      if(view === '全部' || view === '拼配 / SOE'){
+        filteredBlendGroups.forEach(group => {
+          group.rows.forEach(row => {
+            const product = buildProductFromBlend(row, group.category);
+            const rowPayload = escapeHtml(JSON.stringify(row));
+            const picked = isCompared(product);
+            const cardArt = artClass(product.notes[0] || 'default');
+            html += `
+              <tr>
+                <td>${escapeHtml(group.category)}</td>
+                <td><button class="name-btn blend-name" data-category="${escapeHtml(group.category)}" data-row='${rowPayload}'>${escapeHtml(row[0])}</button></td>
+                <td>${escapeHtml(row[1])}</td>
+                <td class="price-cell">${escapeHtml(row[2])}</td>
+                <td>${escapeHtml(row[4])}</td>
+                <td>${escapeHtml(row[5])}</td>
+                <td><button class="compare-btn compare-blend ${picked ? 'is-picked' : ''}" type="button" data-category="${escapeHtml(group.category)}" data-row='${rowPayload}'>${picked ? '已加入' : '加入对比'}</button></td>
+              </tr>`;
+            cardHtml += `
+              <article class="quote-card quote-card-blend ${cardArt}">
+                <div class="quote-card-top">
+                  <span class="quote-kind">${escapeHtml(group.category)}</span>
+                  <span class="quote-card-price">${escapeHtml(row[2])}</span>
+                </div>
+                <h3>${escapeHtml(row[0])}</h3>
+                <p class="quote-card-notes">${escapeHtml(row[1])}</p>
+                <span class="quote-card-origin">${escapeHtml(posterOriginText(row[5]))}</span>
+                <div class="quote-card-meta">
+                  <span>烘焙度：${escapeHtml(row[4])}</span>
+                  <span>产区 / 组成：${escapeHtml(row[5])}</span>
+                </div>
+                <div class="quote-card-actions">
+                  <button class="quote-action quote-view-blend" type="button" data-category="${escapeHtml(group.category)}" data-row='${rowPayload}'>查看风味</button>
+                  <button class="quote-action secondary quote-compare-blend ${picked ? 'is-picked' : ''}" type="button" data-category="${escapeHtml(group.category)}" data-row='${rowPayload}'>${picked ? '已加入' : '加入对比'}</button>
+                </div>
+              </article>`;
+          });
+        });
+      }
+
+      if(view === '全部' || view === '单品豆'){
+        filteredSingleOrigins.forEach(row => {
+          const product = buildProductFromSingle(row);
+          const rowPayload = escapeHtml(JSON.stringify(row));
+          const picked = isCompared(product);
+          const cardArt = artClass(product.notes[0] || 'default');
+          html += `
+            <tr>
+              <td>单品咖啡豆</td>
+              <td><button class="name-btn single-name" data-row='${rowPayload}'>${escapeHtml(row[1])}</button></td>
+              <td>${escapeHtml(row[2])}</td>
+              <td class="price-cell">${escapeHtml(row[3])}</td>
+              <td>${escapeHtml(row[4])}</td>
+              <td>${escapeHtml(row[0])} / ${escapeHtml(row[5])} / ${escapeHtml(row[6])}</td>
+              <td><button class="compare-btn compare-single ${picked ? 'is-picked' : ''}" type="button" data-row='${rowPayload}'>${picked ? '已加入' : '加入对比'}</button></td>
+            </tr>`;
+          cardHtml += `
+            <article class="quote-card quote-card-single ${cardArt}">
+              <div class="quote-card-top">
+                <span class="quote-kind">单品咖啡豆</span>
+                <span class="quote-card-price">${escapeHtml(row[3])}</span>
+              </div>
+              <h3>${escapeHtml(row[1])}</h3>
+              <p class="quote-card-notes">${escapeHtml(row[2])}</p>
+              <span class="quote-card-origin">${escapeHtml(row[0])} / ${escapeHtml(row[5])}</span>
+              <div class="quote-card-meta">
+                <span>烘焙度：${escapeHtml(row[4])}</span>
+                <span>${escapeHtml(row[0])} / ${escapeHtml(row[5])} / ${escapeHtml(row[6])}</span>
+              </div>
+              <div class="quote-card-actions">
+                <button class="quote-action quote-view-single" type="button" data-row='${rowPayload}'>查看风味</button>
+                <button class="quote-action secondary quote-compare-single ${picked ? 'is-picked' : ''}" type="button" data-row='${rowPayload}'>${picked ? '已加入' : '加入对比'}</button>
+              </div>
+            </article>`;
+        });
+      }
+
+      body.innerHTML = html || `<tr><td colspan="7" style="text-align:center;color:#8c7b72;padding:30px">没有找到对应结果</td></tr>`;
+      quoteList.innerHTML = cardHtml || `<div class="quote-empty">没有找到对应结果</div>`;
+
+      body.querySelectorAll('.blend-name').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const row = JSON.parse(btn.getAttribute('data-row'));
+          const category = btn.getAttribute('data-category');
+          selectProduct(buildProductFromBlend(row, category));
+        });
+      });
+      quoteList.querySelectorAll('.quote-view-blend').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const row = JSON.parse(btn.getAttribute('data-row'));
+          const category = btn.getAttribute('data-category');
+          selectProduct(buildProductFromBlend(row, category));
+        });
+      });
+      body.querySelectorAll('.compare-blend').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const row = JSON.parse(btn.getAttribute('data-row'));
+          const category = btn.getAttribute('data-category');
+          addToCompare(buildProductFromBlend(row, category));
+        });
+      });
+      quoteList.querySelectorAll('.quote-compare-blend').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const row = JSON.parse(btn.getAttribute('data-row'));
+          const category = btn.getAttribute('data-category');
+          addToCompare(buildProductFromBlend(row, category));
+        });
+      });
+      body.querySelectorAll('.single-name').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const row = JSON.parse(btn.getAttribute('data-row'));
+          selectProduct(buildProductFromSingle(row));
+        });
+      });
+      quoteList.querySelectorAll('.quote-view-single').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const row = JSON.parse(btn.getAttribute('data-row'));
+          selectProduct(buildProductFromSingle(row));
+        });
+      });
+      body.querySelectorAll('.compare-single').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const row = JSON.parse(btn.getAttribute('data-row'));
+          addToCompare(buildProductFromSingle(row));
+        });
+      });
+      quoteList.querySelectorAll('.quote-compare-single').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const row = JSON.parse(btn.getAttribute('data-row'));
+          addToCompare(buildProductFromSingle(row));
+        });
+      });
+    }
+
+    function updateScrollProgress(){
+      const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = maxScroll > 0 ? window.scrollY / maxScroll : 0;
+      document.documentElement.style.setProperty('--scroll-progress', progress.toFixed(4));
+    }
+
+    function showToast(message){
+      const toast = document.getElementById('toast');
+      if (!toast) return;
+      toast.textContent = message;
+      toast.classList.add('is-visible');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove('is-visible'), 1800);
+    }
+
+    function setupReveals(){
+      if (revealObserver) revealObserver.disconnect();
+      const targets = [
+        ...document.querySelectorAll('.section-head, .slide-panel, .compare-panel, .flavor-card, .quote-card, .brief-card, .about-item, .footer-card')
+      ];
+      targets.forEach((el, index) => {
+        el.classList.add('reveal');
+        el.style.setProperty('--reveal-delay', `${(index % 5) * 55}ms`);
+      });
+
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+        document.body.classList.add('page-ready');
+        targets.forEach(el => el.classList.add('is-visible'));
+        return;
+      }
+
+      revealObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        });
+      }, { threshold:.12, rootMargin:'0px 0px -8% 0px' });
+
+      targets.forEach(el => revealObserver.observe(el));
+      requestAnimationFrame(() => document.body.classList.add('page-ready'));
+    }
+
+    function renderAll(){
+      renderDetail();
+      renderCompare();
+      renderTabs();
+      renderQuote();
+      setupReveals();
+      updateScrollProgress();
+    }
+
+    document.getElementById('searchInput').addEventListener('input', (event) => {
+      query = event.target.value;
+      renderQuote();
+      setupReveals();
+      updateScrollProgress();
+    });
+
+    window.addEventListener('scroll', updateScrollProgress, { passive:true });
+    window.addEventListener('resize', updateScrollProgress);
+
+    renderAll();
+  </script>
+</body>
+</html>
